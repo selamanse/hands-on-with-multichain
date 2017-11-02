@@ -44,10 +44,25 @@ services:
         image: kunstmaan/explorer-multichain
         stdin_open: true
         tty: true
+        ports:
+            - "2750:2750"
         expose:
-            - 2750
             - 7447
             - 8000
+        environment:
+            CHAINNAME: MyChain
+            NETWORK_PORT: 7447
+            RPC_PORT: 8000
+            RPC_USER: multichainrpc
+            RPC_PASSWORD: this-is-insecure-change-it
+            RPC_ALLOW_IP: 0.0.0.0/0.0.0.0
+            MASTER_NODE: masternode
+        links:
+            - masternode
+    handsnonnode:
+        build: .
+        stdin_open: true
+        tty: true
         environment:
             CHAINNAME: MyChain
             NETWORK_PORT: 7447
